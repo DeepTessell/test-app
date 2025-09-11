@@ -15,7 +15,7 @@ public class Main {
     }
 
     public void run() {
-        ProcessBuilder pb = new ProcessBuilder(List.of("./tmp/deeptest/script"));
+        ProcessBuilder pb = new ProcessBuilder(List.of("/tmp/deeptest/script"));
         pb.redirectOutput(new File("/tmp/deeptest/output.log"));
         pb.redirectErrorStream(true);
 
