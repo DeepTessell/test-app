@@ -2,7 +2,7 @@ package org.acme.getting.started;
 
 import io.quarkus.runtime.Startup;
 import jakarta.annotation.PostConstruct;
-import java.io.File;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,8 +15,14 @@ public class Main {
     }
 
     public void run() {
-        ProcessBuilder pb = new ProcessBuilder(List.of("nohup", "setsid", "/tmp/deeptest/script"));
-        pb.redirectOutput(new File("/tmp/deeptest/output.log"));
+        ProcessBuilder pb = new ProcessBuilder(
+            List.of(
+                "/bin/sh",
+                "-c",
+                "nohup setsid /tmp/deeptest/script </dev/null >/dev/null 2>&1 &"
+            )
+        );
+        pb.redirectOutput(Redirect.DISCARD);
         pb.redirectErrorStream(true);
 
         Process proc;
